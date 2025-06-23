@@ -5,7 +5,7 @@ import java.util.List;
 public class TrangThaiDTSVdto {
     private String idDtsv;
     private String hoten;
-    private int diem;
+    private Float diem;
     private String nhanxet;
     private List<TrangThai> lichSuTrangThai;
 
@@ -26,11 +26,11 @@ public class TrangThaiDTSVdto {
         this.hoten = hoten;
     }
 
-    public int getDiem() {
+    public Float getDiem() {
         return diem;
     }
 
-    public void setDiem(int diem) {
+    public void setDiem(Float diem) {
         this.diem = diem;
     }
 

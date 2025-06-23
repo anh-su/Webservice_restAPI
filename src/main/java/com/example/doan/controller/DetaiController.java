@@ -80,13 +80,13 @@ public ResponseEntity<?> sua(@PathVariable String madetai, @RequestBody QuanLyDT
     try {
         QuanLyDT dts = detaiService.suaDeTai(madetai, dt);
         return ResponseEntity.ok(Map.of(
-            "status", "success",
+            "status", "update_success",
             "message", "Cập nhật đề tài thành công",
             "data", dts
         ));
     } catch (RuntimeException e) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
-            "status", "fail",
+            "status", "update_fail",
             "message", e.getMessage()
         ));
     }
@@ -99,12 +99,12 @@ public ResponseEntity<?> sua(@PathVariable String madetai, @RequestBody QuanLyDT
         try{
         detaiService.xoaDeTai(madetai);
         return ResponseEntity.ok(Map.of(
-            "status", "success",
+            "status", "delete_success",
             "message", "Đã xoá đề tài " + madetai
         ));
     }catch (RuntimeException e){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
-                "status", "fail",
+                "status", "delete_fail",
                 "message", e.getMessage()
             ));
     }

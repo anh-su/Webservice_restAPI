@@ -79,11 +79,11 @@ public class NhomController {
 
         try {
             rep.saveUploadedFile(file, idDtsv);
-            response.put("success", true);
+            response.put("status", "success");
             response.put("message", "Nộp báo cáo thành công");
             return ResponseEntity.ok(response);
         } catch (Exception e) {
-            response.put("success", false);
+            response.put("status", "error");
             response.put("message", "Nộp báo cáo thất bại: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }

@@ -4,20 +4,14 @@
  */
 package com.example.doan.repository;
 
-import com.example.doan.entity.GiangVien;
-
-import com.example.doan.entity.PhanCong;
-
+import com.example.doan.entity.KetQua;
+import com.example.doan.entity.LichSuTrangThai;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
  * @author ADMIN
  */
-public interface PhanCongRepository extends JpaRepository<PhanCong, Long>{
-    boolean existsByIdDtsvAndMadetaiAndIdgiangvien(String idDtsv, String madetai, GiangVien idgiangvien);
-
+public interface LichSuTrangThaiRepository extends JpaRepository<LichSuTrangThai, String> {
     
 }
-
-

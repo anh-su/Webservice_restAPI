@@ -10,6 +10,8 @@ public class detai {
     private Long id;
 
  
+    @Column(name = "Madetai")
+    private String Madetai;
     @Column(name = "Tendetai")
     private String Tendetai;
 }

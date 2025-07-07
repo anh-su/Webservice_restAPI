@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author ADMIN
  */
+//xem thống kê
 @RestController
 @RequestMapping("/api/danhgia")
 public class DanhgiaController {

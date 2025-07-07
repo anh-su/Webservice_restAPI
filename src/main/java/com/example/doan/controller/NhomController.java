@@ -69,6 +69,7 @@ public class NhomController {
         return chitietrep.layDanhSachThanhVien(idDtsv);
     }
     
+    //nhóm sinh viên đăng ký đề tài
      @Autowired
     private DeTaiCuaSVService rep;
     @PostMapping("/nopbaocao")
@@ -89,6 +90,7 @@ public class NhomController {
         }
     }
  
+ // Trạng thái của đề tài
    @Autowired
     private TrangThaiDTSVService service;
 

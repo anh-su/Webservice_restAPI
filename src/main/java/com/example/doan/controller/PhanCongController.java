@@ -35,6 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author ADMIN
  */
+//Phân công giảng viên chấm bài
 @RestController
 @RequestMapping("/api/phancong")
 @CrossOrigin
@@ -44,8 +45,6 @@ public class PhanCongController {
         @Autowired private TrangThaiDTSVService chamDiemService;
         
          @Autowired private TrangThaiDTSVService Service;
-    
-
     @PostMapping
     public ResponseEntity<?> phanCong(@RequestBody PhanCongRequest request) {
         Map<String, Object> result = phanCongService.phanCongGiangVien(request);
@@ -55,7 +54,6 @@ public class PhanCongController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
         }
     }
-
     @GetMapping("/giangvien")
     public List<GiangVien> layDanhSachGiangVien() {
         return giangVienRepository.findAll();

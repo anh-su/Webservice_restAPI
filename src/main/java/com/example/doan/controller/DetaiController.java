@@ -50,7 +50,7 @@ public class DetaiController {
     private DetaiService detaiService;
     
     
-
+//tạo đề tài 
     @PostMapping("/themdetai")
     public ResponseEntity<?> themDetai(@RequestBody QuanLyDT dt) {
         String result = detaiService.themDetai(dt);
@@ -69,12 +69,8 @@ public class DetaiController {
             default:
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("status", "fail", "message", "Lỗi không xác định"));
         }
-        
-        
-
-    
-    
 }
+    //sửa thông tin đề tài
 @PutMapping("/suadetai/{madetai}")
 public ResponseEntity<?> sua(@PathVariable String madetai, @RequestBody QuanLyDT dt) {
     try {
@@ -207,9 +203,10 @@ public ResponseEntity<?> sua(@PathVariable String madetai, @RequestBody QuanLyDT
          return danhsachrep.layDanhSachDetai();
      }
      
+     
+     //DS đề tài của sinh viên đã đang ký
     @Autowired
     private DeTaiCuaSVService service;
-
     @GetMapping("/detaicua/{idSinhvien}")
     public List<DeTaiCuaSVdto> getDetai(@PathVariable("idSinhvien") String idSinhVien) {
         List<DeTaiCuaSVdto> detais = service.getDeTaiBySinhVienId(idSinhVien);

@@ -48,8 +48,7 @@ public class DetaiController {
 
     @Autowired
     private DetaiService detaiService;
-    
-    
+
 //tạo đề tài 
     @PostMapping("/themdetai")
     public ResponseEntity<?> themDetai(@RequestBody QuanLyDT dt) {
@@ -69,45 +68,44 @@ public class DetaiController {
             default:
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("status", "fail", "message", "Lỗi không xác định"));
         }
-}
-    //sửa thông tin đề tài
-@PutMapping("/suadetai/{madetai}")
-public ResponseEntity<?> sua(@PathVariable String madetai, @RequestBody QuanLyDT dt) {
-    try {
-        QuanLyDT dts = detaiService.suaDeTai(madetai, dt);
-        return ResponseEntity.ok(Map.of(
-            "status", "update_success",
-            "message", "Cập nhật đề tài thành công",
-            "data", dts
-        ));
-    } catch (RuntimeException e) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
-            "status", "update_fail",
-            "message", e.getMessage()
-        ));
     }
-}
+    //sửa thông tin đề tài
 
+    @PutMapping("/suadetai/{madetai}")
+    public ResponseEntity<?> sua(@PathVariable String madetai, @RequestBody QuanLyDT dt) {
+        try {
+            QuanLyDT dts = detaiService.suaDeTai(madetai, dt);
+            return ResponseEntity.ok(Map.of(
+                    "status", "update_success",
+                    "message", "Cập nhật đề tài thành công",
+                    "data", dts
+            ));
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
+                    "status", "update_fail",
+                    "message", e.getMessage()
+            ));
+        }
+    }
 
     // Xoá đề tài
     @DeleteMapping("/xoadetai/{madetai}")
     public ResponseEntity<?> xoa(@PathVariable String madetai) {
-        try{
-        detaiService.xoaDeTai(madetai);
-        return ResponseEntity.ok(Map.of(
-            "status", "delete_success",
-            "message", "Đã xoá đề tài " + madetai
-        ));
-    }catch (RuntimeException e){
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
-                "status", "delete_fail",
-                "message", e.getMessage()
+        try {
+            detaiService.xoaDeTai(madetai);
+            return ResponseEntity.ok(Map.of(
+                    "status", "delete_success",
+                    "message", "Đã xoá đề tài " + madetai
             ));
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
+                    "status", "delete_fail",
+                    "message", e.getMessage()
+            ));
+        }
     }
-    }
-    
-    
-     @Autowired
+
+    @Autowired
     private detairepository detaiRepo;
 
     @Autowired
@@ -139,7 +137,7 @@ public ResponseEntity<?> sua(@PathVariable String madetai, @RequestBody QuanLyDT
 
     // Đăng ký đề tài
     @PostMapping("/dangky")
-   public ResponseEntity<Map<String, String>> dangKyDeTai(@RequestBody NhomSVDKDTRequest req) {
+    public ResponseEntity<Map<String, String>> dangKyDeTai(@RequestBody NhomSVDKDTRequest req) {
         Map<String, String> response = new HashMap<>();
 
         // Kiểm tra thiếu thông tin
@@ -168,51 +166,56 @@ public ResponseEntity<?> sua(@PathVariable String madetai, @RequestBody QuanLyDT
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
-   
-   
-     @PostMapping("/duyet/{iddtsv}")
-     public ResponseEntity<?> duyetdetai(@RequestBody Map<String, String> req){
-         String iddtsv = req.get("id_dtsv");
+
+    @PostMapping("/duyet/{iddtsv}")
+    public ResponseEntity<?> duyetdetai(@RequestBody Map<String, String> req) {
+        String iddtsv = req.get("id_dtsv");
         boolean success = detaiService.capNhatTrangThai(iddtsv, "Đã Duyệt");
-        if(success){
-            
-            return ResponseEntity.ok().body(Map.of("status", "success","message", "Đề tài đã được duyệt"));
-            
-        }else{
+        if (success) {
+
+            return ResponseEntity.ok().body(Map.of("status", "success", "message", "Đề tài đã được duyệt"));
+
+        } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("status", "error", "message", "Không thể duyệt đề tài"));
         }
-     }
-    
-        @PostMapping("/tuchoi/{iddtsv}")
-     public ResponseEntity<?> tuchoidetai(@RequestBody Map<String, String> req){
-         String iddtsv = req.get("id_dtsv");
+    }
+
+    @PostMapping("/tuchoi/{iddtsv}")
+    public ResponseEntity<?> tuchoidetai(@RequestBody Map<String, String> req) {
+        String iddtsv = req.get("id_dtsv");
         boolean success = detaiService.capNhatTrangThai1(iddtsv, "Từ Chối");
-        if(success){
-            return ResponseEntity.ok().body(Map.of("status", "success","message", "Đã từ chối đề tài"));
-            
-        }else{
+        if (success) {
+            return ResponseEntity.ok().body(Map.of("status", "success", "message", "Đã từ chối đề tài"));
+
+        } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("status", "error", "message", "Không thể từ chối đề tài"));
         }
-     }
-     
-      @Autowired
+    }
+
+    @Autowired
     private DanhSachDTDKRepository danhsachrep;
-      
-       @GetMapping("/danhsachdtdk")
-     public List<DanhSachDTDK> layDanhSachDetai(){
-         return danhsachrep.layDanhSachDetai();
-     }
-     
-     
-     //DS đề tài của sinh viên đã đang ký
+
+    @GetMapping("/danhsachdtdk")
+    public List<DanhSachDTDK> layDanhSachDetai() {
+        return danhsachrep.layDanhSachDetai();
+    }
+
+    //DS đề tài của sinh viên đã đang ký
     @Autowired
     private DeTaiCuaSVService service;
+
     @GetMapping("/detaicua/{idSinhvien}")
-    public List<DeTaiCuaSVdto> getDetai(@PathVariable("idSinhvien") String idSinhVien) {
-        List<DeTaiCuaSVdto> detais = service.getDeTaiBySinhVienId(idSinhVien);
+    public List<DeTaiCuaSVdto> getDetai(
+            @PathVariable("idSinhvien") String idSinhVien,
+            @RequestParam(defaultValue = "all") String TrangthaiDT) {
+
+        List<DeTaiCuaSVdto> detais = service.getDeTaiBySinhVienId(idSinhVien, TrangthaiDT);
+
         if (detais.isEmpty()) {
             return List.of();
         }
+
         return detais;
     }
+
 }

@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DeTaiCuaSVRepository extends JpaRepository<DeTaiCuaSV, Long>  {
+public interface DeTaiCuaSVRepository extends JpaRepository<DeTaiCuaSV, Long> {
 
     @Query(value = """
         SELECT 
@@ -24,7 +24,12 @@ public interface DeTaiCuaSVRepository extends JpaRepository<DeTaiCuaSV, Long>  {
         JOIN detaisinhvien AS sv ON n.ID_DTSV = sv.ID_DTSV
         JOIN detai AS d ON d.Tendetai = sv.Tendetai
         WHERE n.ID_Sinhvien = :idSinhvien
+          AND (:trangthaiDT = 'all' OR sv.TrangthaiDT = :trangthaiDT)
         LIMIT 25
     """, nativeQuery = true)
-    List<Object[]> findDeTaiBySinhVienId(@Param("idSinhvien") String idSinhvien);
+    List<Object[]> findDeTaiBySinhVienIdAndTrangthaiDT(
+        @Param("idSinhvien") String idSinhvien,
+        @Param("trangthaiDT") String trangthaiDT
+    );
 }
+

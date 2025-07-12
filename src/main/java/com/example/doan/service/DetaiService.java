@@ -52,6 +52,10 @@ public class DetaiService {
         Optional<QuanLyDT> optional = detaiRepository.findBymadetai(madetai);
         if (optional.isPresent()) {
            QuanLyDT dt = optional.get();
+           
+           if(dtMoi.getNgaybatdau().isAfter(dtMoi.getNgayketthuc())){
+               throw new RuntimeException("Ngày bắt đầu phải trước ngày kết thúc"); 
+           }
             dt.setTendetai(dtMoi.getTendetai());
             dt.setMota(dtMoi.getMota());
             dt.setNgaybatdau(dtMoi.getNgaybatdau());

@@ -35,8 +35,8 @@ public class DeTaiCuaSVService {
     @Autowired
     private DeTaiCuaSVRepository deTaiRepository;
 
-    public List<DeTaiCuaSVdto> getDeTaiBySinhVienId(String idSinhvien) {
-        List<Object[]> results = deTaiRepository.findDeTaiBySinhVienId(idSinhvien);
+    public List<DeTaiCuaSVdto> getDeTaiBySinhVienId(String idSinhvien,String trangthaiDT) {
+        List<Object[]> results = deTaiRepository.findDeTaiBySinhVienIdAndTrangthaiDT(idSinhvien,trangthaiDT);
         return results.stream().map(row -> new DeTaiCuaSVdto(
                 (String) row[0], // ID_DTSV
                 (String) row[1], // Madetai

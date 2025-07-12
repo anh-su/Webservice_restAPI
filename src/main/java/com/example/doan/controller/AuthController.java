@@ -59,15 +59,13 @@ public class AuthController {
         if (result.equals("duplicate")) {
              Map<String, String> error = new HashMap<>();
             error.put("message", "ID_TK hoặc ID_Admin đã tồn tại.");
-            return ResponseEntity.ok(error);
+       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
        Map<String, String> response = new HashMap<>();
          
        
        response.put("message","Đăng ký thành công");
-    
-
-        return ResponseEntity.ok(response);
+         return ResponseEntity.status(HttpStatus.MULTIPLE_CHOICES).body(response);
     }
 }
 
